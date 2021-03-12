@@ -1,6 +1,7 @@
 import { InternServiceService } from './intern-service.service';
 import { Component, OnInit} from '@angular/core';
 import { UserServiceService } from './user-service.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,16 @@ export class AppComponent implements OnInit  {
   readFile(fileEvent: any) {
     const file = fileEvent.target.files[0];
     this.image=file.name;
+    const maxSize = 20000000;
+    const allowed_types = ['image/png', 'image/jpeg'];
+    if(file.size>maxSize){
+      alert("Maximum file size must be 20 MB")
+      return;
+    }
+    if (!_.includes(allowed_types, file.type)) {
+      alert('Only Images are allowed ( JPG | PNG )');
+      return false;
+  }
     console.log('size', file.size);
     console.log('type', file.type);
     console.log(file);
