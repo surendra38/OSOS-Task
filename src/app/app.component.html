@@ -1,0 +1,31 @@
+<div class="container"> 
+  <div class="row p-5">
+    <div class="col-md-6">
+      <app-intern (childToParent)="childData($event)"></app-intern>
+    </div>
+      <div class="col-md-6">
+        <div class="p-3">
+          <h5 class="card-title">{{product.userId}}</h5>
+          <h5 class="card-text">{{product.id}}</h5>
+          <p class="card-text">{{product.title}}</p>
+          <p class="card-text">{{product.image}}</p>
+          <button *ngIf="btnflag" class="btn btn-primary" (click)="deleteData()">deleteData</button>
+        </div>
+
+            <!-- Form Start -->
+        <form class="w-1 form p-3" *ngIf="formbtn" #regForm="ngForm" (ngSubmit)="addData(regForm.value)">
+          <div class="form-group">
+            <!-- <label> Title</label> -->
+            <textarea required #title="ngModel" class="form-control h-25" ngModel name="title" placeholder="Write something.."></textarea>
+            <span *ngIf="title.invalid && title.touched" class="error">Plase Write Sometext</span>
+          </div>
+          <div class="form-group">
+            <label>Image :</label>
+            <input required #image="ngModel" type="file" class="form-control" ngModel (change)="readFile($event)" name="image"  placeholder="Add File">
+            <span *ngIf="image.invalid && image.touched" class="error">Plase Upload the image</span>
+          </div><br>
+          <button [disabled] ="regForm.invalid" type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
