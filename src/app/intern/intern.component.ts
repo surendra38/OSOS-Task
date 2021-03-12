@@ -1,5 +1,5 @@
 import { InternServiceService } from './../intern-service.service';
-import { Component, OnInit ,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserServiceService } from '../user-service.service';
 
 @Component({
@@ -9,31 +9,31 @@ import { UserServiceService } from '../user-service.service';
 })
 export class InternComponent implements OnInit {
 
-  @Output() childToParent:EventEmitter<any>=new EventEmitter();
+  @Output() childToParent: EventEmitter<any> = new EventEmitter();
 
-  showFormbtn=false;
-  userdata:any=[];
-  index:number;
+  showFormbtn = false;
+  userdata: any = [];
+  index: number;
 
-  constructor(private service:InternServiceService, private service2:UserServiceService) {
-    this.service.getData().subscribe(data=>{
-      this.userdata=data.slice(0,8);
+  constructor(private service: InternServiceService, private service2: UserServiceService) {
+    this.service.getData().subscribe(data => {
+      this.userdata = data.slice(0, 8);
     })
   }
-  showData(i){
-    this.index=i;
+  showData(i) {
+    this.index = i;
     this.service2.name.next(this.userdata[i])
   }
 
-  showForm(){
-    this.showFormbtn=true;
+  showForm() {
+    this.showFormbtn = true;
     this.childToParent.emit(this.showFormbtn);
   }
-  
+
   ngOnInit(): void {
-    this.service2.addData.subscribe(n=>{
+    this.service2.addData.subscribe(n => {
       this.userdata.push(n);
     })
-   }
-   
+  }
+
 }
